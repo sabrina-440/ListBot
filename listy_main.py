@@ -17,3 +17,44 @@ prints out list after modification is done
 /show (or /ls) show all current lists
 '''
 
+
+import discord
+import json
+import asyncio
+import re
+
+# Load configuration
+with open('config.json') as config_file:
+    config = json.load(config_file)
+
+TOKEN = config['token']
+
+class MyClient(discord.Client):
+    def __init__(self, *args, **kwargs):
+        self.lists = []
+        self.content = {}
+
+    async def on_ready(self):
+        print(f'Logged on as {self.user}')
+    
+    async def on_message(self, message):
+         if message.content.startswith('/create'):
+            try:
+                response = re.match(r'')
+            await message.channel.send("<:daquan:1379633390260850718>")
+            return   
+
+
+
+intents = discord.Intents.default()
+intents.presences = True
+intents.messages = True
+intents.guilds = True
+intents.members = True
+intents.message_content = True
+
+activity = discord.Game(name="~keeper of the lists~")
+client = MyClient(intents=intents, activity=activity)
+
+client.run(TOKEN)
+
